@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013 Matthew Precious
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout style="@style/Profile.Wrapper" >
+
+        <LinearLayout style="@style/Profile.Section" >
+
+            <TextView
+                style="@style/Profile.Header"
+                android:text="@string/custom_profile_header_name" />
+
+            <View style="@style/Profile.Divider" />
+
+            <EditText
+                android:id="@+id/nameField"
+                style="@style/Profile.Item.EditText"
+                android:hint="@string/custom_profile_header_name"
+                android:imeOptions="actionNext"
+                android:inputType="textCapSentences" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Profile.Section" >
+
+            <TextView
+                style="@style/Profile.Header"
+                android:text="@string/custom_profile_header_tag" />
+
+            <View style="@style/Profile.Divider" />
+
+            <EditText
+                android:id="@+id/tagField"
+                style="@style/Profile.Item.EditText"
+                android:hint="@string/custom_profile_header_tag"
+                android:imeOptions="actionNext" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Profile.Section" >
+
+            <TextView
+                style="@style/Profile.Header"
+                android:text="@string/custom_profile_header_package" />
+
+            <View style="@style/Profile.Divider" />
+
+            <LinearLayout style="@style/Profile.Item" >
+
+                <EditText
+                    android:id="@+id/packageField"
+                    style="@style/Profile.SplitItemEditText"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/custom_profile_header_package"
+                    android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions" />
+
+                <ImageButton
+                    android:id="@+id/packageButton"
+                    style="@style/Profile.SplitItemImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/package_picker_title"
+                    android:src="@drawable/ic_button_search" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

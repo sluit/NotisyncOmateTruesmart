@@ -1,0 +1,246 @@
+<!--
+  Copyright 2013 Matthew Precious
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme" parent="AppTheme">
+        <item name="actionBarItemBackground">@drawable/selectable_background_orange</item>
+        <item name="popupMenuStyle">@style/orange_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/orange_DropDownListView</item>
+        <item name="actionBarTabStyle">@style/orange_ActionBarTabStyle</item>
+        <item name="actionDropDownStyle">@style/orange_DropDownNav</item>
+        <item name="actionBarStyle">@style/orange_solid_ActionBar</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_orange</item>
+        <item name="android:popupMenuStyle">@style/orange_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/orange_DropDownListView</item>
+        <item name="android:actionBarTabStyle">@style/orange_ActionBarTabStyle</item>
+        <item name="android:actionDropDownStyle">@style/orange_DropDownNav</item>
+        <item name="android:actionBarStyle">@style/orange_solid_ActionBar</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.orange.widget</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.orange.widget</item>
+
+        <!-- switch -->
+        <item name="switchStyle">@style/SwitchAppTheme</item>
+        <item name="switchStyleAb">@style/SwitchAbAppTheme</item>
+    </style>
+
+    <style name="SwitchAppTheme" parent="Widget.Holo.Light.CompoundButton.Switch">
+        <item name="track">@drawable/switch_track_holo_light</item>
+        <item name="thumb">@drawable/switch_inner_holo_light</item>
+        <item name="switchTextAppearance">@style/SwitchTextAppearance</item>
+    </style>
+
+    <style name="SwitchAbAppTheme" parent="Widget.Holo.CompoundButton.Switch">
+        <item name="track">@drawable/switch_track_holo_dark</item>
+        <item name="thumb">@drawable/switch_inner_holo_dark</item>
+        <item name="switchTextAppearance">@style/SwitchTextAppearance</item>
+    </style>
+    
+    <style name="SwitchTextAppearance" parent="android:TextAppearance.Small.Inverse">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+    </style>
+
+    <!-- wizard pager -->
+    <style name="TextAppearanceFinish" parent="android:TextAppearance.Holo.Medium">
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="WizardPageContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dip</item>
+    </style>
+
+    <style name="WizardPageTitle">
+        <item name="android:id">@android:id/title</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textColor">#FFFF8800</item>
+    </style>
+
+    <style name="WizardPageText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="WizardPageDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?attr/dividerHorizontal</item>
+    </style>
+
+    <style name="WizardPageScrollView">
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarStyle">outsideInset</item>
+    </style>
+    <!-- notifications -->
+    <style name="NotificationPrimaryText">
+        <item name="android:textColor">#cccccc</item>
+    </style>
+
+    <style name="NotificationSecondaryText">
+        <item name="android:textColor">#999999</item>
+    </style>
+
+    <!-- undo bar -->
+    <style name="UndoBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/undobar</item>
+        <item name="android:clickable">true</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">@drawable/undobar_divider</item>
+        <item name="android:dividerPadding">10dp</item>
+    </style>
+
+    <style name="UndoBarMessage">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="UndoBarButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">@drawable/undobar_button</item>
+        <item name="android:drawableLeft">@drawable/ic_undobar_undo</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:text">@string/undo</item>
+    </style>
+
+    <style name="MainFragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="ProfileList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- profile styles -->
+    <style name="Profile"></style>
+
+    <style name="Profile.Wrapper">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">15dip</item>
+    </style>
+
+    <style name="Profile.Empty">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#44000000</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Profile.Section">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">15dip</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Profile.Header">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Profile.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:background">#000000</item>
+    </style>
+
+    <style name="Profile.Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dip</item>
+    </style>
+
+    <style name="Profile.Item.EditText">
+        <item name="android:ems">10</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Profile.Item.CheckBox">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Profile.SplitItemEditText">
+        <item name="android:ems">10</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Profile.SplitItemImageButton">
+        <item name="android:layout_marginLeft">5dip</item>
+        <item name="android:background">@drawable/selectable_background_orange</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingRight">5dip</item>
+    </style>
+
+    <style name="Profile.Item.FauxSpinner" parent="@style/SpinnerAppTheme">
+
+        <!-- can't multiple-inherit, same as Profile.Item -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dip</item>
+
+        <!-- new attrs -->
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RequestTagsError">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dip</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+</resources>

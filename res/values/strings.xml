@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013 Matthew Precious
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+    http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="app_name">NotiSync</string>
+
+    <!-- wizard -->
+    <string name="wizard_previous">Previous</string>
+    <string name="wizard_next">Next</string>
+    <string name="wizard_finish">Finish</string>
+    <string name="wizard_welcome_title">Welcome to NotiSync!</string>
+    <string name="wizard_welcome_content">Let\'s get started!</string>
+    <string name="wizard_mode_title">What device is this?</string>
+    <string name="wizard_mode_primary_title">Primary</string>
+    <string name="wizard_mode_primary_description">This is your main phone or tablet. It will forward notifications to your other devices</string>
+    <string name="wizard_mode_secondary_title">Secondary</string>
+    <string name="wizard_mode_secondary_description">This phone or tablet will receive notifications from the primary device</string>
+    <string name="wizard_devices_title">Select your other devices</string>
+    <string name="wizard_devices_not_listed">Device not listed?</string>
+    <string name="wizard_accessibility_title">Accessibility service</string>
+    <string name="wizard_accessibility_content">In order for the Gtalk profile and your own custom profiles to work, NotiSync needs to be enabled as an Accessibility Service. This is an optional step, and NotiSync will not collect any information provided.</string>
+    <string name="wizard_accessibility_enable">Enable now</string>
+    <string name="wizard_accessibility_enabled">Enabled!</string>
+    <string name="wizard_customprofiles_title">Custom profiles</string>
+    <string name="wizard_customprofiles_content_primary">
+<![CDATA[
+        Creating a custom profile will allow you to forward notifications from almost any app. Here are some important things to know.<br /><br />
+        
+        <b>Name</b><br />
+        Help yourself identify your profiles with a simple display name.<br /><br />
+        
+        <b>Tag</b><br />
+        For every custom profile that you create, you will need to set a unique \'tag\'. Create a custom profile on your other devices with a matching tag to configure how those notifications are received.
+        ]]>
+    </string>
+    <string name="wizard_customprofiles_content_secondary">
+<![CDATA[
+        If you\'ve created any custom profiles on your primary device, create a matching profile here to configure your notifications. Here are some important things to know.<br /><br />
+        
+        <b>Name</b><br />
+        Help yourself identify your profiles with a simple display name. This name will also be used as a title for your notifications.<br /><br />
+        
+        <b>Tag</b><br />
+        This tag must match a tag that you\'ve used on your primary device. This is how NotiSync identifies custom notifications when they are received.<br /><br />
+        
+        <b>Only if no internet connection</b><br />
+        Enable this to only display these notifications when you do not have an internet connection. This is useful if you already have the app on this device and you don\'t want duplicate notifications while you\'re online.
+        ]]>
+    </string>
+    <string name="wizard_bluetoothissue_title">Bluetooth issue</string>
+    <string name="wizard_bluetoothissue_content">It appears that you are running Android %s. There is a known Bluetooth bug that may occasionally prevent your devices connecting, but this can be fixed by restarting Bluetooth. Would you like to schedule NotiSync to do this automatically?</string>
+    <string name="wizard_bluetoothissue_button">Schedule fix</string>
+    <string name="wizard_done_title">You\'re all set!</string>
+    <string name="wizard_done_content">Done!</string>
+
+    <!-- accessibility -->
+    <string name="accessibility_service_description">Enabling NotiSync as an accessibility service allows NotiSync to receive notifications from other apps. This is required for the Gtalk profile or any of your custom profiles to work.\n\nNote that NotiSync is only forwarding your notifications, and is not collecting any information.</string>
+    <string name="accessibility_dialog_title">Accessibility service</string>
+    <string name="accessibility_dialog_message">In order for the Gtalk profile and your own custom profiles to work, NotiSync needs to be enabled as an Accessibility Service.</string>
+    <string name="accessibility_dialog_positive">Enable</string>
+    <string name="accessibility_dialog_neutral">Not now</string>
+    <string name="accessibility_dialog_negative">Never</string>
+
+    <!-- notifications -->
+    <string name="noti_connected_to">Connected to %s</string>
+    <string name="noti_not_connected">Not connected</string>
+    <string name="noti_bt_not_enabled">Bluetooth is not enabled</string>
+    <string name="noti_action_connect">Connect</string>
+    <string name="noti_action_enable_bt">Enable</string>
+    <string name="noti_title_incoming_call">Incoming call</string>
+    <string name="noti_title_missed_call">Missed call</string>
+    <string name="noti_title_new_messages">%d new messages</string>
+
+    <!-- main activity -->
+    <string name="pager_title_standard">Standard</string>
+    <string name="pager_title_custom">Custom</string>
+    <string name="pager_title_third_party">Third Party</string>
+
+    <!-- standard fragment -->
+    <string name="profile_text_messages">Text messages</string>
+    <string name="profile_phone_calls">Phone calls</string>
+    <string name="profile_gtalk">Gtalk</string>
+
+    <!-- custom fragment -->
+    <string name="add_custom_profile">Add custom profile</string>
+
+    <!-- main croutons/toasts/popups -->
+    <string name="profile_saved">Profile saved</string>
+    <string name="profile_discarded">Changes discarded</string>
+    <string name="profile_deleted">Profile deleted</string>
+    <string name="undo">Undo</string>
+
+    <!-- misc -->
+    <!-- TODO: this string changed in 4.2.2 to None -->
+    <string name="ringtone_silent">Silent</string>
+    <string name="bluetooth_icon_description">Bluetooth icon</string>
+
+    <!-- standard profile -->
+    <string name="standard_profile_empty">This profile doesn\'t have any options</string>
+
+    <!-- custom profile -->
+    <string name="custom_profile_header_name">Name</string>
+    <string name="custom_profile_header_tag">Tag</string>
+    <string name="custom_profile_header_package">App</string>
+    <string name="custom_profile_header_conditions">Conditions</string>
+    <string name="custom_profile_header_ringtone">Notification sound</string>
+    <string name="custom_profile_header_extras">Extras</string>
+    <string name="custom_profile_label_unconnected_only">Only if no internet connection</string>
+    <string name="custom_profile_label_vibrate">Vibrate</string>
+    <string name="custom_profile_label_lights">Flash LED</string>
+    <string name="custom_profile_tag_picker_description">Request tags from connected device</string>
+
+    <!-- custom profile croutons & errors -->
+    <string name="custom_profile_fix_errors">Please fix the errors below and try again.</string>
+    <string name="custom_profile_error">An error has occurred</string>
+    <string name="custom_profile_invalid_empty">%s must not be empty</string>
+    <string name="custom_profile_invalid_tag_clash">Tag is already used by \'%s\'</string>
+
+    <!-- custom profile push dialog -->
+    <string name="custom_profile_push_title">Push</string>
+    <string name="custom_profile_push_message">Would you like to push this profile to all connected devices?</string>
+    <string name="custom_profile_push_yes">Yes</string>
+    <string name="custom_profile_push_no">No</string>
+    <string name="custom_profile_push_never">Never</string>
+
+    <!-- package picker -->
+    <string name="package_picker_title">Pick an application</string>
+    <string name="package_picker_cancel">Cancel</string>
+    <string name="package_picker_icon_description">App Icon</string>
+
+    <!-- tag picker -->
+    <string name="request_tags_title">Pick a profile</string>
+    <string name="request_tags_cancel">Cancel</string>
+    <string name="request_tags_none">No profiles found</string>
+    <string name="request_tags_error">Could not load tags from primary device</string>
+
+    <!-- menu items -->
+    <string name="menu_settings">Settings</string>
+    <string name="menu_wizard">Wizard</string>
+    <string name="menu_samsung_tts">Disable Samsung TTS</string>
+    <string name="menu_feedback">Feedback/Support</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About</string>
+    <string name="menu_dev_tools">Dev tools</string>
+    <string name="menu_accessibility">Enable accessibility service</string>
+    <string name="menu_configure_bluetooth">Configure bluetooth</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_discard">Discard</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_push">Save &amp; Push</string>
+
+    <!-- prefence headers -->
+    <string name="preference_header_devices">Manage devices</string>
+    <string name="preference_header_general">General settings</string>
+    <string name="preference_header_bluetooth_fix">Bluetooth fix</string>
+    <string name="preference_header_about">About</string>
+
+    <!-- preferences -->
+    <string name="settings_title">Settings</string>
+    <string name="preference_general_start_on_boot">Start on boot</string>
+    <string name="preference_general_mode_title">Mode</string>
+    <string name="preference_general_mode_summary">Should this device send notifications (primary) or receive notifications (secondary)?</string>
+    <string name="preference_general_analytics_title">Improve NotiSync</string>
+    <string name="preference_general_analytics_summary">Help improve NotiSync by sending anonymous usage data</string>
+    <string name="preference_bluetooth_fix_enabled_title">Enable Bluetooth fix</string>
+    <string name="preference_bluetooth_fix_enabled_summary">Let NotiSync reset your Bluetooth once a day to fix a known issue in Android 4.2</string>
+    <string name="preference_bluetooth_fix_time_title">Time to run</string>
+    <string name="preference_bluetooth_fix_time_summary">The time of the day to run this fix</string>
+
+    <!-- about -->
+    <string name="about_author_title">Author</string>
+    <string name="about_author_summary">Matthew Precious</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_change_log_title">Change log</string>
+    <string name="about_attributions_title">Attributions</string>
+    <string name="about_feedback_title">Feedback/Support</string>
+    <string name="about_feedback_summary">Report a bug or suggest improvements</string>
+
+    <!-- change log -->
+    <string name="change_log_title">What\'s new?</string>
+    <string name="change_log_close">Close</string>
+
+    <!-- samsung tts bs -->
+    <string name="samsung_tts_title">Samsung TTS Issue</string>
+    <string name="samsung_tts_message">There is currently a known issue on Samsung devices where enabling NotiSync as an accessibility service will also enable Text-to-Speech services on the phone. Would you like to disable these now? You can access this window again at any time through the menu.</string>
+    <string name="samsung_tts_disable_talkback">Disable Talkback</string>
+    <string name="samsung_tts_disable_google">Disable Google TTS</string>
+    <string name="samsung_tts_disable_samsung">Disable Samsung TTS</string>
+    <string name="samsung_tts_negative">Close</string>
+
+    <!-- open source stuff -->
+    <string name="attributions_title">Attributions</string>
+    <string name="attributions_close">Close</string>
+    <string name="attributions">
+<![CDATA[
+       Thanks to all of these open source tools:<br /><br />
+       
+       <b><a href="http://actionbarsherlock.com">ActionBarSherlock</a></b><br />
+       by Jake Wharton<br /><br />
+       
+       <b><a href="http://nineoldandroids.com/">NineOldAndroids</a></b><br />
+       by Jake Wharton<br /><br />
+       
+       <b><a href="https://github.com/BoD/android-switch-backport">Android Switch Widget Backport</a></b><br />
+       by Benoit Lubek<br /><br />
+       
+       <b><a href="https://github.com/keyboardsurfer/Crouton">Crouton</a></b><br />
+       by Benjamin Weiss<br /><br />
+       
+       <b><a href="http://code.google.com/p/romannurik-code/source/browse/misc/wizardpager">WizardPager</a></b><br />
+       by Roman Nurik<br /><br />
+       
+       <b><a href="http://code.google.com/p/romannurik-code/source/browse/misc/undobar">UndoBar</a></b><br />
+       by Roman Nurik<br /><br />
+       
+       <b><a href="http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html">Android Asset Studio</a></b><br />
+       by Roman Nurik<br /><br />
+       
+       <b><a href="http://jgilfelt.github.com/android-actionbarstylegenerator/">Android Action Bar Style Generator</a></b><br />
+       by Jeff Gilfelt<br /><br />
+       
+       <b><a href="http://android-holo-colors.com/">Android Holo Colors Generator</a></b><br />
+       by Jérôme Van Der Linden<br /><br />
+       
+       And thanks to these designers:<br /><br />
+       
+       <b><a href="http://thenounproject.com/noun/wizard-hat/#icon-No6223">Wizard Hat</a></b><br />
+       by <b><a href="http://thenounproject.com/jasmine.friedrich">Jasmine Rae Friedrich</a></b> from <b><a href="http://thenounproject.com">The Noun Project</a></b>  
+    ]]>
+    </string>
+
+    <!-- no bluetooth :( -->
+    <string name="no_bluetooth">Bluetooth is not supported on this device</string>
+
+</resources>
