@@ -6,14 +6,25 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.mattprecious.notisync.BuildConfig;
 import com.mattprecious.notisync.R;
 import com.mattprecious.notisync.db.NotificationDatabaseAdapter;
+import com.mattprecious.notisync.devtools.DevToolsActivity;
+import com.mattprecious.notisync.fragment.AccessibilityDialogFragment;
 import com.mattprecious.notisync.model.NotificationCard;
+import com.mattprecious.notisync.preferences.SettingsActivity;
+import com.mattprecious.notisync.util.Helpers;
 import com.mattprecious.notisync.util.MyLog;
 
 public class NotificationListActivity extends SherlockActivity  {
@@ -80,6 +91,14 @@ public class NotificationListActivity extends SherlockActivity  {
 		}
 	}
 	
+	private void openNotificationDatabaseWrite(){
+		try {
+			notificationDbAdapter.openWrite(); 
+		} catch (Exception e){
+			MyLog.e("Error", "opening database write");
+		}
+	}
+	
 	private NotificationCard cursorToNotificationCard(Cursor cursor){
 		String header = cursor.getString(NotificationDatabaseAdapter.KEY_APP_NAME_INDEX);
 		String title = cursor.getString(NotificationDatabaseAdapter.KEY_MESSAGE_TITLE_INDEX);
@@ -89,5 +108,32 @@ public class NotificationListActivity extends SherlockActivity  {
 
 		return new NotificationCard(context, header, title, message, packageName, time);
 	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.notifications, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            	finish();
+                return false;
+            case R.id.menu_delete:
+            	clearDatabase();
+            	return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    
+    private void clearDatabase(){
+    	openNotificationDatabaseWrite();
+    	notificationDbAdapter.deleteAllNotifications();
+    	notificationDbAdapter.close();
+    }
 	
 }

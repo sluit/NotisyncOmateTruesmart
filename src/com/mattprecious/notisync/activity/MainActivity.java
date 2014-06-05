@@ -403,6 +403,8 @@ public class MainActivity extends SherlockFragmentActivity implements UndoListen
             case R.id.menu_dev_tools:
                 startActivity(new Intent(this, DevToolsActivity.class));
                 return true;
+            case R.id.menu_notifications:
+            	startActivity(new Intent(this, NotificationListActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

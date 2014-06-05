@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mattprecious.notisync"
+    android:versionCode="3"
+    android:versionName="1.0.2" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ab_home"
+        android:theme="@style/Theme" >
+        <activity
+            android:name="com.mattprecious.notisync.activity.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mattprecious.notisync.activity.WizardActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/WizardTheme" />
+        <activity
+            android:name="com.mattprecious.notisync.preferences.SettingsActivity"
+            android:label="@string/settings_title"
+            android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name="com.mattprecious.notisync.activity.DeviceListActivity"
+            android:label="@string/preference_header_devices"
+            android:uiOptions="splitActionBarWhenNarrow" />
+        <activity android:name="com.mattprecious.notisync.activity.NotificationListActivity" android:launchMode="singleTop"/>
+        <activity android:name="com.mattprecious.notisync.profile.StandardProfileActivity" />
+        <activity android:name="com.mattprecious.notisync.profile.PrimaryCustomProfileActivity" />
+        <activity android:name="com.mattprecious.notisync.profile.SecondaryCustomProfileActivity" />
+        <activity
+            android:name="com.mattprecious.notisync.devtools.DevToolsActivity"
+            android:theme="@style/DevToolsTheme" />
+
+        <service android:name="com.mattprecious.notisync.service.PrimaryService" />
+        <service android:name="com.mattprecious.notisync.service.SecondaryService" />
+        <service android:name="com.mattprecious.notisync.service.BluetoothFixService" />
+        <service
+            android:name="com.mattprecious.notisync.service.NotificationService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <receiver android:name="com.mattprecious.notisync.receiver.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="com.mattprecious.notisync"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
