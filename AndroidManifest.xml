@@ -5,7 +5,7 @@
     android:versionName="1.0.2" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -55,6 +55,7 @@
             android:name="com.mattprecious.notisync.activity.DeviceListActivity"
             android:label="@string/preference_header_devices"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity android:name="com.mattprecious.notisync.activity.NotificationListActivity" android:launchMode="singleTop"/>
         <activity android:name="com.mattprecious.notisync.profile.StandardProfileActivity" />
         <activity android:name="com.mattprecious.notisync.profile.PrimaryCustomProfileActivity" />
         <activity android:name="com.mattprecious.notisync.profile.SecondaryCustomProfileActivity" />

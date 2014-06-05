@@ -21,8 +21,13 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Base64;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.RemoteViews;
 
@@ -34,7 +39,9 @@ import com.mattprecious.notisync.model.PrimaryProfile;
 import com.mattprecious.notisync.util.MyLog;
 import com.mattprecious.notisync.util.Preferences;
 
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -153,7 +160,7 @@ public class NotificationService extends AccessibilityService {
 					.build();*/
 
 					CustomMessage customMessage = getCustomMessage(profile, notification);
-
+					
 					sendMessage(customMessage);
 				}
 			}
@@ -251,15 +258,67 @@ public class NotificationService extends AccessibilityService {
 			e.printStackTrace();
 		}
 		
-		CustomMessage customMessage = new CustomMessage.Builder()
-		.tag(profile.getTag())
-		.appName(profile.getName())
-		.messageTitle(list.get(0))
-		.message(list.get(3))
-		.build();
-		return customMessage;
+		/*String bitmapString = bitmapToString(notification.largeIcon);
+		Log.d("NotificationService", "BitmapString: " + bitmapString);
+		
+		Drawable icon = null;
+		try {
+			icon = getPackageManager().getApplicationIcon(profile.getPackageName());
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String iconString = drawableToString(icon);
+		//imageView.setImageDrawable(icon);*/
+		
+		if (list.size() > 2){
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(list.get(0))
+			.time(list.get(1))
+			.message(list.get(3))
+			.packageName(profile.getPackageName())
+			/*.smallIcon(iconString)
+			.largeIcon(bitmapString)*/
+			.build();
+		}
+		else {
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(list.get(0))
+			.time(list.get(1))
+			.message(list.get(2))
+			.packageName(profile.getPackageName())
+			/*.smallIcon(iconString)
+			.largeIcon(bitmapString)*/
+			.build();
+		}
 	}
 
+	private String drawableToString(Drawable drawable){
+		if (drawable != null){
+			return bitmapToString(((BitmapDrawable)drawable).getBitmap());
+		}
+		return "null";
+	}
+	
+	/**
+     * @param bitmap
+     * @return converting bitmap and return a string
+     */
+     private String bitmapToString(Bitmap bitmap){
+         if (bitmap != null){
+        	 ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+             bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+             byte [] b=baos.toByteArray();
+             String temp=Base64.encodeToString(b, Base64.DEFAULT);
+             return temp;
+         }
+         return "null";
+    }
+	
 	@Override
 	public void onInterrupt() {
 	}

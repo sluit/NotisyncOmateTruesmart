@@ -20,24 +20,30 @@ public class CustomMessage extends BaseMessage {
     public final int VERSION_CODE = 1;
 
     public String tag;
+    public String packageName;
     public String appName;
     public String messageTitle;
     public String message;
+    public String time;
 
     private CustomMessage(Builder builder) {
         super();
 
         tag = builder.tag;
+        packageName = builder.packageName;
         appName = builder.appName;
         messageTitle = builder.messageTitle;
         message = builder.message;
+        time = builder.time;
     }
 
     public static class Builder {
         private String tag;
+        private String packageName;
         private String appName;
         private String messageTitle;
         private String message;
+        private String time;
 
         public Builder tag(String tag) {
             this.tag = tag;
@@ -58,7 +64,17 @@ public class CustomMessage extends BaseMessage {
             this.message = message;
             return this;
         }
-
+        
+        public Builder time(String time) {
+            this.time = time;
+            return this;
+        }
+        
+        public Builder packageName(String packageName) {
+            this.packageName = packageName;
+            return this;
+        }
+                
         public CustomMessage build() {
             return new CustomMessage(this);
         }

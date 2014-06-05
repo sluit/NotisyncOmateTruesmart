@@ -16,6 +16,8 @@
 
 package com.mattprecious.notisync.message;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,13 +40,15 @@ public class BaseMessage {
             JsonObject json = new JsonParser().parse(jsonString).getAsJsonObject();
             String dataTypeStr = json.get("DATA_TYPE").getAsString();
             if (ClearMessage.class.getName().equals(dataTypeStr)) {
-                json = json.getAsJsonObject("message");
+                Log.d("BaseMessage", "ClearMessage");
+            	json = json.getAsJsonObject("message");
                 Class<?> dataType = Class.forName(json.get("DATA_TYPE").getAsString());
 
                 BaseMessage subMessage = (BaseMessage) new Gson().fromJson(json, dataType);
                 message = new ClearMessage(subMessage);
             } else {
-                Class<?> dataType = Class.forName(json.get("DATA_TYPE").getAsString());
+            	 Log.d("BaseMessage", dataTypeStr);
+            	Class<?> dataType = Class.forName(json.get("DATA_TYPE").getAsString());
                 message = (BaseMessage) new Gson().fromJson(json, dataType);
             }
         } catch (ClassNotFoundException e) {

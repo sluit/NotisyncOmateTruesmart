@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -40,13 +41,17 @@ import android.telephony.PhoneNumberUtils;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
+import android.util.Base64;
+import android.util.Log;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mattprecious.notisync.R;
 import com.mattprecious.notisync.activity.MainActivity;
+import com.mattprecious.notisync.activity.NotificationListActivity;
 import com.mattprecious.notisync.bluetooth.BluetoothService;
 import com.mattprecious.notisync.db.DbAdapter;
+import com.mattprecious.notisync.db.NotificationDatabaseAdapter;
 import com.mattprecious.notisync.devtools.DevToolsActivity;
 import com.mattprecious.notisync.message.BaseMessage;
 import com.mattprecious.notisync.message.ClearMessage;
@@ -96,6 +101,7 @@ public class SecondaryService extends Service {
     private final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
     private DbAdapter dbAdapter;
+    private NotificationDatabaseAdapter notificationsDbAdapter;
     private LocalBroadcastManager broadcastManager;
     private NotificationManager notificationManager;
     private BluetoothService bluetoothService;
@@ -128,6 +134,7 @@ public class SecondaryService extends Service {
         }
 
         dbAdapter = new DbAdapter(this);
+        notificationsDbAdapter = new NotificationDatabaseAdapter(this);
         connectedDeviceName = null;
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -479,6 +486,7 @@ public class SecondaryService extends Service {
         builder.setSmallIcon(R.drawable.ic_stat_logo);
         builder.setContentTitle(message.messageTitle);
         builder.setContentText(message.message);
+
         builder.setAutoCancel(true);
 
         SecondaryProfile profile = null;
@@ -507,9 +515,14 @@ public class SecondaryService extends Service {
                     defaults |= Notification.DEFAULT_LIGHTS;
                 }
 
-                builder.setContentTitle(profile.getName());
+                //builder.setContentTitle(profile.getName());
                 builder.setDefaults(defaults);
                 builder.setSound(getRingtoneUri(profile.getRingtone()));
+                
+                openNotificationDatabaseWrite();
+                notificationsDbAdapter.insertNotification(message.packageName, 
+                		message.tag, message.appName, message.messageTitle, message.message, message.time);
+                notificationsDbAdapter.close();
             }
         }
 
@@ -517,13 +530,16 @@ public class SecondaryService extends Service {
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
 
-        PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(), 0);
+        Intent showIntent = new Intent(this, NotificationListActivity.class);
+        PendingIntent intent = PendingIntent.getActivity(this, 0, showIntent, 0);
         builder.setContentIntent(intent);
 
+        
         Notification notification = new NotificationCompat.BigTextStyle(builder)
-        		//.bigText(message.messageTitle)
-        		.bigText(message.message)
-        		.build();
+     		//.bigText(message.messageTitle)
+     		.bigText(message.message)
+     		.build();
+       
 
         // use the profile ID to determine the notification ID
         // TODO: note that if somehow a profile ID is ~2^32, we're overwriting
@@ -534,6 +550,32 @@ public class SecondaryService extends Service {
         }
 
         notificationManager.notify(notificationId, notification);
+    }
+
+    private void openNotificationDatabaseWrite(){
+    	//try {
+    		notificationsDbAdapter.openWrite();
+    	//} catch (Exception e){
+		////	Log.e("Error", "opening database write");
+		//}
+    }
+    
+    /**
+     * @param encodedString
+     * @return bitmap (from given string)
+     */
+    public Bitmap stringToBitmap(String encodedString){
+    	if (encodedString != null && !encodedString.equals("")){
+    		try{
+        		byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+        		Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        		return bitmap;
+        	}catch(Exception e){
+        		e.getMessage();
+        		return null;
+        	}	
+    	}
+    	return null;
     }
 
     private void handleClearMessage(ClearMessage message) {

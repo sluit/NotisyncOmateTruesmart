@@ -34,6 +34,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
@@ -72,7 +73,9 @@ public class PrimaryService extends Service {
     public final static String ACTION_SEND_MESSAGE =
             "notisync.service.PrimaryService.ACTION_SEND_MESSAGE";
 
-    public final static String EXTRA_MESSAGE = "message";
+    public final static String EXTRA_MESSAGE = "message",
+    							EXTRA_SMALL_ICON = "smallIcon",
+    							EXTRA_LARGE_ICON = "largeIcon";
 
     private static boolean running = false;
 
