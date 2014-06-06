@@ -23,5 +23,11 @@
     <dimen name="step_pager_tab_height">3dp</dimen>
     <dimen name="step_pager_tab_spacing">4dp</dimen>
 
+    
+    <!-- cards -->
     <dimen name="card_base_empty_height">24dp</dimen>
+    
+    <!-- Thumbnail -->
+    <dimen name="card_thumbnail_width">48dp</dimen>
+    <dimen name="card_thumbnail_height">48dp</dimen>
 </resources>

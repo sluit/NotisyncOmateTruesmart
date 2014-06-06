@@ -104,7 +104,7 @@ public class NotificationListActivity extends SherlockActivity  {
 		String title = cursor.getString(NotificationDatabaseAdapter.KEY_MESSAGE_TITLE_INDEX);
 		String message = cursor.getString(NotificationDatabaseAdapter.KEY_MESSAGE_INDEX);
 		String packageName = cursor.getString(NotificationDatabaseAdapter.KEY_PACKAGE_NAME_INDEX);
-		Long time = cursor.getLong(NotificationDatabaseAdapter.KEY_PACKAGE_NAME_INDEX);
+		Long time = cursor.getLong(NotificationDatabaseAdapter.KEY_TIME_INDEX);
 
 		return new NotificationCard(context, header, title, message, packageName, time);
 	}

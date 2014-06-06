@@ -34,8 +34,9 @@ public class NotificationCard extends Card {
 	}
 	
 	private void init(){
-		CardHeader cardHeader = new CardHeader(mContext);
+		NotificationCardHeader cardHeader = new NotificationCardHeader(mContext);
 		cardHeader.setTitle(header);
+		cardHeader.setTime(time);
 		addCardHeader(cardHeader);
 		
 		if (packageName.equals("com.whatsapp")){
