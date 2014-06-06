@@ -2873,6 +2873,8 @@ Style for simple title header inner view
         /**  Style for Thumbnail ******************************************************
          */
         public static final int card_thumbnail_image=0x7f080070;
+        /**  CARDS 
+         */
         public static final int card_thumbnail_outer_layout=0x7f080071;
         public static final int grid_card=0x7f080076;
         /**  Style for Lists ******************************************************
