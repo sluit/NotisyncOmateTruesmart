@@ -40,8 +40,14 @@ public class NotificationCard extends Card {
 		addCardHeader(cardHeader);
 		
 		if (packageName.equals("com.whatsapp")){
-			Log.d("NotificationCard", "whatsapp");
 			resourceIdThumb = R.drawable.package_com_whatsapp;
+		}
+		else if (header.equals("Gmail")){
+			resourceIdThumb = R.drawable.package_com_google_android_gm;
+		} else if (packageName.equals("com.google.android.talk") 
+				|| packageName.equals("com.google.android.apps.gtalkservice") 
+				|| packageName.equals("com.google.android.gsf")){
+			resourceIdThumb = R.drawable.package_talk;
 		}
 		else {
 			resourceIdThumb = R.drawable.ic_stat_logo;

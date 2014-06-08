@@ -59,6 +59,8 @@ public class NotificationService extends AccessibilityService {
 			"com.google.android.gsf",
 	});
 
+	private final static String PACKAGE_WHATSAPP = "com.whatsapp";
+	
 	// TODO: Locale issues? This pattern isn't really global...
 	private final Pattern gtalkPattern = Pattern.compile("(.*): (.*)");
 
@@ -66,7 +68,7 @@ public class NotificationService extends AccessibilityService {
 
 	private LocalBroadcastManager broadcastManager;
 	private DbAdapter dbAdapter;
-
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -145,21 +147,31 @@ public class NotificationService extends AccessibilityService {
 					MyLog.d(TAG, "Pattern does not match: " + tickerText);
 				}
 				return;
-			} else {
+			} /*else if (PACKAGE_WHATSAPP.equals(packageName)){
 				dbAdapter.openReadable();
 				PrimaryProfile profile = dbAdapter.getPrimaryProfileByPackage(packageName);
 				dbAdapter.close();
 
 				if (profile != null && profile.isEnabled()) {
-					String message = notification.tickerText == null ? null
+					CustomMessage customMessage = getCustomMessage(profile, notification, packageName);
+					
+					sendMessage(customMessage);
+				}
+			}*/ else {
+				dbAdapter.openReadable();
+				PrimaryProfile profile = dbAdapter.getPrimaryProfileByPackage(packageName);
+				dbAdapter.close();
+
+				if (profile != null && profile.isEnabled()) {
+					/*String message = notification.tickerText == null ? null
 							: notification.tickerText.toString();
-					/*CustomMessage customMessage = new CustomMessage.Builder()
+					CustomMessage customMessage = new CustomMessage.Builder()
 					.tag(profile.getTag())
 					.appName(profile.getName())
 					.messageTitle(message)
 					.build();*/
 
-					CustomMessage customMessage = getCustomMessage(profile, notification);
+					CustomMessage customMessage = getCustomMessage(profile, notification, packageName);
 					
 					sendMessage(customMessage);
 				}
@@ -173,7 +185,7 @@ public class NotificationService extends AccessibilityService {
 
 	//From http://stackoverflow.com/questions/9292032/extract-notification-text-from-parcelable-contentview-or-contentintent
 	@SuppressLint("NewApi")
-	private CustomMessage getCustomMessage(PrimaryProfile profile, Notification notification){
+	private CustomMessage getCustomMessage(PrimaryProfile profile, Notification notification, String packageName){
 		RemoteViews views = null;
 		if (android.os.Build.VERSION.SDK_INT >= 16){
 			views = notification.bigContentView;
@@ -189,9 +201,6 @@ public class NotificationService extends AccessibilityService {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			Map<Integer, String> text = new HashMap<Integer, String>();
-			//int counter = 0;
-
-
 			Field outerFields[] = secretClass.getDeclaredFields();
 
 			for (int i = 0; i < outerFields.length; i++) {
@@ -222,21 +231,10 @@ public class NotificationService extends AccessibilityService {
 
 						if (type != null) {
 							if (type == 5 || type == 9 || type == 10) {
-								
-								
-								//if (viewId != null && value != null){
 								list.add(value.toString());
-								
-								//text.put(type + 100 * counter, value.toString());
-								//counter ++;
-								//}
 							}
 						}
 					}
-
-					//System.out.println("title is: " + text.get(16908310));
-					//System.out.println("info is: " + text.get(16909082));
-					//System.out.println("text is: " + text.get(16908358));
 				}
 			}
 			
@@ -270,8 +268,7 @@ public class NotificationService extends AccessibilityService {
 		}
 		String iconString = drawableToString(icon);
 		//imageView.setImageDrawable(icon);*/
-		
-		if (list.size() > 2){
+		if (PACKAGE_WHATSAPP.equals(packageName)){
 			return new CustomMessage.Builder()
 			.tag(profile.getTag())
 			.appName(profile.getName())
@@ -279,8 +276,46 @@ public class NotificationService extends AccessibilityService {
 			.time(list.get(1))
 			.message(list.get(3))
 			.packageName(profile.getPackageName())
+			.tickerText(notification.tickerText.toString())
+			.unread("")
+			.account("")
+			.build();
+		} else if (list.size() >= 6){
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(list.get(0))
+			.time(list.get(3))
+			.message(list.get(5))
+			.packageName(profile.getPackageName())
+			.tickerText(notification.tickerText.toString())
+			.unread(list.get(1))
+			.account(list.get(2))
+			.build();
+		} else {
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(list.get(0))
+			.time(list.get(1))
+			.message(list.get(2))
+			.packageName(profile.getPackageName())
+			.tickerText(notification.tickerText.toString())
+			.unread("")
+			.account("")
+			.build();
+		}
+		/*if (list.size() > 2){
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(list.get(0))
+			.time(list.get(1))
+			.message(list.get(3))
+			.packageName(profile.getPackageName())
+			.tickerText(notification.tickerText.toString())
 			/*.smallIcon(iconString)
-			.largeIcon(bitmapString)*/
+			.largeIcon(bitmapString)*//*
 			.build();
 		}
 		else {
@@ -291,10 +326,11 @@ public class NotificationService extends AccessibilityService {
 			.time(list.get(1))
 			.message(list.get(2))
 			.packageName(profile.getPackageName())
+			.tickerText(notification.tickerText.toString())
 			/*.smallIcon(iconString)
-			.largeIcon(bitmapString)*/
+			.largeIcon(bitmapString)*//*
 			.build();
-		}
+		}*/
 	}
 
 	private String drawableToString(Drawable drawable){

@@ -31,9 +31,11 @@ public class NotificationListActivity extends SherlockActivity  {
 
 	private NotificationDatabaseAdapter notificationDbAdapter;
 	private CardListView cardListView;
+	private CardArrayAdapter cardArrayAdapter;
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	
 	private Context context;
+	private boolean busy;
 	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +44,12 @@ public class NotificationListActivity extends SherlockActivity  {
         this.context = this;
         notificationDbAdapter = new NotificationDatabaseAdapter(this);
         
-        new AddNotificationCard().execute();
+        busy = true;
+        new InitNotificationCards().execute();
 	}
 
 	private void init(){
-		CardArrayAdapter cardArrayAdapter = new CardArrayAdapter(this, cards);
+		cardArrayAdapter = new CardArrayAdapter(this, cards);
 		
 		cardListView = (CardListView) findViewById(R.id.notification_card_list);
 		if (cardListView != null){
@@ -55,7 +58,7 @@ public class NotificationListActivity extends SherlockActivity  {
 
 	}
 
-	private class AddNotificationCard extends AsyncTask<Void, Void, Void>{
+	private class InitNotificationCards extends AsyncTask<Void, Void, Void>{
 
 		@Override
 		protected Void doInBackground(Void... voids) {
@@ -80,8 +83,47 @@ public class NotificationListActivity extends SherlockActivity  {
 		@Override
 		protected void onPostExecute(Void void1) {
 			init();
+			busy = false;
 		}
 	}
+	
+	private class AddNotificationCards extends AsyncTask<Void, Card, Void>{
+
+		@Override
+		protected void onPreExecute(){
+			cards.clear();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... voids) {
+			openNotificationDatabaseRead();
+			Cursor cursor = notificationDbAdapter.fetchNotifications();
+			cursor.moveToFirst(); 
+
+			//Log.d("FragmentHistory", "cursor size " + cursor.getCount());
+			while(!cursor.isAfterLast()){
+				NotificationCard notificationCard = cursorToNotificationCard(cursor);
+				publishProgress(notificationCard);
+				cursor.moveToNext();
+			}
+			//Log.d("FragmentHistory", "history list " + historyList.size());
+			cursor.close();
+			notificationDbAdapter.close();
+
+			return null;
+		}
+		
+		protected void onProgressUpdate(Card... progress) {
+			cards.add(progress[0]);
+	    }
+
+		@Override
+		protected void onPostExecute(Void voids) {
+			cardArrayAdapter.notifyDataSetChanged();
+			busy = false;
+		}
+	}
+	
 	
 	private void openNotificationDatabaseRead(){
 		try {
@@ -122,6 +164,12 @@ public class NotificationListActivity extends SherlockActivity  {
             case android.R.id.home:
             	finish();
                 return false;
+            case R.id.menu_refresh:
+            	if (!busy){
+            		busy = true;
+                    new AddNotificationCards().execute();
+            	}
+            	return true;
             case R.id.menu_delete:
             	clearDatabase();
             	return true;
@@ -134,6 +182,11 @@ public class NotificationListActivity extends SherlockActivity  {
     	openNotificationDatabaseWrite();
     	notificationDbAdapter.deleteAllNotifications();
     	notificationDbAdapter.close();
+    	
+    	if (!busy){
+    		busy = true;
+            new AddNotificationCards().execute();
+    	}
     }
 	
 }

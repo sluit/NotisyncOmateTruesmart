@@ -25,6 +25,9 @@ public class CustomMessage extends BaseMessage {
     public String messageTitle;
     public String message;
     public String time;
+    public String tickerText;
+    public String unread;
+    public String account;
 
     private CustomMessage(Builder builder) {
         super();
@@ -35,6 +38,9 @@ public class CustomMessage extends BaseMessage {
         messageTitle = builder.messageTitle;
         message = builder.message;
         time = builder.time;
+        tickerText = builder.tickerText;
+        unread = builder.unread;
+        account = builder.account;
     }
 
     public static class Builder {
@@ -44,6 +50,9 @@ public class CustomMessage extends BaseMessage {
         private String messageTitle;
         private String message;
         private String time;
+        private String tickerText;
+        private String unread;
+        private String account;
 
         public Builder tag(String tag) {
             this.tag = tag;
@@ -72,6 +81,21 @@ public class CustomMessage extends BaseMessage {
         
         public Builder packageName(String packageName) {
             this.packageName = packageName;
+            return this;
+        }
+        
+        public Builder tickerText(String tickerText) {
+            this.tickerText = tickerText;
+            return this;
+        }
+        
+        public Builder unread(String unread) {
+            this.unread = unread;
+            return this;
+        }
+        
+        public Builder account(String account) {
+            this.account = account;
             return this;
         }
                 

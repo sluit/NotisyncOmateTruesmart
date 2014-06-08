@@ -483,7 +483,17 @@ public class SecondaryService extends Service {
 
     private void handleCustomMessage(CustomMessage message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.ic_stat_logo);
+        if (message.packageName.equals("com.whatsapp")){
+        	builder.setSmallIcon(R.drawable.package_com_whatsapp);
+        } else if (message.appName.contains("Gmail")){
+        	builder.setSmallIcon(R.drawable.package_com_google_android_gm);
+        } else if (message.packageName.equals("com.google.android.talk") 
+        			|| message.packageName.equals("com.google.android.apps.gtalkservice") 
+        			|| message.packageName.equals("com.google.android.gsf")){
+        	builder.setSmallIcon(R.drawable.package_talk);
+        } else {
+        	 builder.setSmallIcon(R.drawable.ic_stat_logo);
+        }
         builder.setContentTitle(message.messageTitle);
         builder.setContentText(message.message);
 
