@@ -198,7 +198,8 @@ public class NotificationService extends AccessibilityService {
 			return null;
 		}
 		Class secretClass = views.getClass();
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> listLong = new ArrayList<String>();
+		ArrayList<String> listMessages = new ArrayList<String>();
 		try {
 			Map<Integer, String> text = new HashMap<Integer, String>();
 			Field outerFields[] = secretClass.getDeclaredFields();
@@ -230,20 +231,28 @@ public class NotificationService extends AccessibilityService {
 						} 
 
 						if (type != null) {
-							if (type == 5 || type == 9 || type == 10) {
-								list.add(value.toString());
+							if (type == 5) {
+								listLong.add(value.toString());
+							}
+							else if (type == 9 || type == 10){
+								listMessages.add(value.toString());
 							}
 						}
 					}
 				}
 			}
 			
-			String testStr = "";
-			for(int i = 0; i < list.size(); i++){
-				testStr += ", " + list.get(i);
+			String testStrNumbers = "";
+			for(int i = 0; i < listLong.size(); i++){
+				testStrNumbers += ", " + listLong.get(i);
+			}
+			String testStrMessages = "";
+			for(int i = 0; i < listMessages.size(); i++){
+				testStrMessages += ", " + listMessages.get(i);
 			}
 
-			MyLog.d(TAG, "testStr: " + testStr);
+			MyLog.d(TAG, "testStrNumbers: " + testStrNumbers);
+			MyLog.d(TAG, "testStrMessages: " + testStrMessages);
 			
 			/*col = text.values();
 			String testStr = "";
@@ -272,35 +281,47 @@ public class NotificationService extends AccessibilityService {
 			return new CustomMessage.Builder()
 			.tag(profile.getTag())
 			.appName(profile.getName())
-			.messageTitle(list.get(0))
-			.time(list.get(1))
-			.message(list.get(3))
+			.messageTitle(listMessages.get(0))
+			.time(listLong.get(0))
+			.message(listMessages.get(2))
 			.packageName(profile.getPackageName())
-			.tickerText(notification.tickerText.toString())
+			.tickerText((notification.tickerText != null) ? notification.tickerText.toString() : "")
 			.unread("")
 			.account("")
 			.build();
-		} else if (list.size() >= 6){
+		} else if (listMessages.size() >= 5){
 			return new CustomMessage.Builder()
 			.tag(profile.getTag())
 			.appName(profile.getName())
-			.messageTitle(list.get(0))
-			.time(list.get(3))
-			.message(list.get(5))
+			.messageTitle(listMessages.get(0))
+			.time(listLong.get(0))
+			.message(listMessages.get(3) + "\n" + listMessages.get(4))
 			.packageName(profile.getPackageName())
-			.tickerText(notification.tickerText.toString())
-			.unread(list.get(1))
-			.account(list.get(2))
+			.tickerText((notification.tickerText != null) ? notification.tickerText.toString() : "")
+			.unread(listMessages.get(1))
+			.account(listMessages.get(2))
+			.build();
+		} else if (listMessages.size() == 4){
+			return new CustomMessage.Builder()
+			.tag(profile.getTag())
+			.appName(profile.getName())
+			.messageTitle(listMessages.get(0))
+			.time(listLong.get(0))
+			.message(listMessages.get(3))
+			.packageName(profile.getPackageName())
+			.tickerText((notification.tickerText != null) ? notification.tickerText.toString() : "")
+			.unread(listMessages.get(1))
+			.account(listMessages.get(2))
 			.build();
 		} else {
 			return new CustomMessage.Builder()
 			.tag(profile.getTag())
 			.appName(profile.getName())
-			.messageTitle(list.get(0))
-			.time(list.get(1))
-			.message(list.get(2))
+			.messageTitle(listMessages.get(0))
+			.time(listLong.get(0))
+			.message(listMessages.get(1))
 			.packageName(profile.getPackageName())
-			.tickerText(notification.tickerText.toString())
+			.tickerText((notification.tickerText != null) ? notification.tickerText.toString() : "")
 			.unread("")
 			.account("")
 			.build();
