@@ -163,8 +163,8 @@ public class MainActivity extends SherlockFragmentActivity implements UndoListen
         supportInvalidateOptionsMenu();
 
         
-        changeLog();
-        /*if (Preferences.getCompletedWizard(this)) {
+        //changeLog();
+        if (Preferences.getCompletedWizard(this)) {
             // there's an issue on pre-hc where if this dialog is opened under
             // the wizard, then once you get back to this activity the webview
             // is empty, so... show this only when there's no wizard
@@ -172,7 +172,7 @@ public class MainActivity extends SherlockFragmentActivity implements UndoListen
         } else {
             startActivityForResult(new Intent(this, WizardActivity.class),
                     REQUEST_CODE_WIZARD);
-        }*/
+        }
     }
 
     @Override

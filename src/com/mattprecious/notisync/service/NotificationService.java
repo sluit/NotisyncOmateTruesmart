@@ -147,17 +147,7 @@ public class NotificationService extends AccessibilityService {
 					MyLog.d(TAG, "Pattern does not match: " + tickerText);
 				}
 				return;
-			} /*else if (PACKAGE_WHATSAPP.equals(packageName)){
-				dbAdapter.openReadable();
-				PrimaryProfile profile = dbAdapter.getPrimaryProfileByPackage(packageName);
-				dbAdapter.close();
-
-				if (profile != null && profile.isEnabled()) {
-					CustomMessage customMessage = getCustomMessage(profile, notification, packageName);
-					
-					sendMessage(customMessage);
-				}
-			}*/ else {
+			} else {
 				dbAdapter.openReadable();
 				PrimaryProfile profile = dbAdapter.getPrimaryProfileByPackage(packageName);
 				dbAdapter.close();
@@ -178,7 +168,6 @@ public class NotificationService extends AccessibilityService {
 			}
 
 			MyLog.d(TAG, "packageName: " + packageName);
-			// MyLog.d(TAG, notification.tickerText);
 		}
 
 	}
@@ -221,13 +210,10 @@ public class NotificationService extends AccessibilityService {
 						field.setAccessible(true);
 						if (field.getName().equals("value")) {
 							value = field.get(action);
-							//MyLog.d(TAG, "value: " + value);
 						} else if (field.getName().equals("type")) {
 							type = field.getInt(action);
-							//MyLog.d(TAG, "type: " + type);
 						} else if (field.getName().equals("viewId")) {
 							viewId = field.getInt(action);
-							//MyLog.d(TAG, "viewId: " + viewId);
 						} 
 
 						if (type != null) {
@@ -253,14 +239,7 @@ public class NotificationService extends AccessibilityService {
 
 			MyLog.d(TAG, "testStrNumbers: " + testStrNumbers);
 			MyLog.d(TAG, "testStrMessages: " + testStrMessages);
-			
-			/*col = text.values();
-			String testStr = "";
-			for(String el : col){
-				testStr += ", " + el;
-			}
 
-			MyLog.d(TAG, "testStr: " + testStr);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -275,8 +254,7 @@ public class NotificationService extends AccessibilityService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String iconString = drawableToString(icon);
-		//imageView.setImageDrawable(icon);*/
+		String iconString = drawableToString(icon);*/
 		if (PACKAGE_WHATSAPP.equals(packageName)){
 			return new CustomMessage.Builder()
 			.tag(profile.getTag())
@@ -326,34 +304,9 @@ public class NotificationService extends AccessibilityService {
 			.account("")
 			.build();
 		}
-		/*if (list.size() > 2){
-			return new CustomMessage.Builder()
-			.tag(profile.getTag())
-			.appName(profile.getName())
-			.messageTitle(list.get(0))
-			.time(list.get(1))
-			.message(list.get(3))
-			.packageName(profile.getPackageName())
-			.tickerText(notification.tickerText.toString())
-			/*.smallIcon(iconString)
-			.largeIcon(bitmapString)*//*
-			.build();
-		}
-		else {
-			return new CustomMessage.Builder()
-			.tag(profile.getTag())
-			.appName(profile.getName())
-			.messageTitle(list.get(0))
-			.time(list.get(1))
-			.message(list.get(2))
-			.packageName(profile.getPackageName())
-			.tickerText(notification.tickerText.toString())
-			/*.smallIcon(iconString)
-			.largeIcon(bitmapString)*//*
-			.build();
-		}*/
 	}
 
+	
 	private String drawableToString(Drawable drawable){
 		if (drawable != null){
 			return bitmapToString(((BitmapDrawable)drawable).getBitmap());

@@ -48,8 +48,11 @@ public class NotificationCard extends Card {
 				|| packageName.equals("com.google.android.apps.gtalkservice") 
 				|| packageName.equals("com.google.android.gsf")){
 			resourceIdThumb = R.drawable.package_talk;
-		}
-		else {
+		} else if (packageName.equals("text.message")){
+			resourceIdThumb = R.drawable.ic_stat_sms;
+		} else if (packageName.equals("phone.call")){
+			resourceIdThumb = R.drawable.ic_stat_incoming;
+		} else {
 			resourceIdThumb = R.drawable.ic_stat_logo;
 			Log.d("NotificationCard", "other");
 		}

@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,6 +253,9 @@ public class WizardActivity extends SherlockFragmentActivity implements
 
         @Override
         public int getCount() {
+        	if (mCurrentPageSequence == null){
+        		return 0;
+        	}
             return Math.min(mCutOffPage + 1, mCurrentPageSequence.size());
         }
 
